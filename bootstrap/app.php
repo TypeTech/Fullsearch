@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 (new Laravel\Lumen\Bootstrap\LoadEnvironmentVariables(
     dirname(__DIR__)
@@ -60,6 +60,7 @@ $app->singleton(
 */
 
 $app->configure('app');
+$app->configure('scout');
 
 /*
 |--------------------------------------------------------------------------
@@ -95,6 +96,9 @@ $app->configure('app');
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 
+$app->register(Laravel\Scout\ScoutServiceProvider::class);
+$app->register(ScoutEngines\Postgres\PostgresEngineServiceProvider::class);
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
@@ -109,7 +113,7 @@ $app->configure('app');
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
-    require __DIR__.'/../routes/web.php';
+    require __DIR__ . '/../routes/web.php';
 });
 
 return $app;
