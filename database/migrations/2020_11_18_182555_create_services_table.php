@@ -39,6 +39,9 @@ class CreateServicesTable extends Migration
      */
     public function down()
     {
+        DB::statement("DROP TRIGGER IF EXISTS tsvector_update_trigger ON services");
+        DB::statement("DROP INDEX IF EXISTS searchtext_gin");
+        DB::statement("ALTER TABLE services DROP COLUMN searchtext");
         Schema::dropIfExists('services');
     }
 }
