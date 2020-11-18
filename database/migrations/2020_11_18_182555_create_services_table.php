@@ -21,9 +21,9 @@ class CreateServicesTable extends Migration
             $table->text("image");
             $table->text("condition")->nullable();
             $table->bigInteger("contact");
-            $table->multiLineString("location");
+            $table->text("location");
             $table->boolean("status")->default(true);
-            $table->timestamps();
+            $table->timestampsTz();
         });
     }
 
