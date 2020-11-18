@@ -10,7 +10,9 @@
     "type": "project",
     "require": {
         "php": "^7.3|^8.0",
-        "laravel/lumen-framework": "^8.0"
+        "laravel/lumen-framework": "^8.0",
+        "laravel/scout": "^8.4",
+        "pmatseykanets/laravel-scout-postgres": "^7.2"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.9.1",
