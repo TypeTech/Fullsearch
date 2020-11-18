@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateServicesTable extends Migration
@@ -25,6 +26,10 @@ class CreateServicesTable extends Migration
             $table->boolean("status")->default(true);
             $table->timestampsTz();
         });
+        DB::statement("ALTER TABLE services ADD COLUMN searchtext TSVECTOR");
+        DB::statement("UPDATE services SET searchtext = to_tsvector('english', name || '' || detail)");
+        DB::statement("CREATE INDEX searchtext_gin ON posts USING GIN(searchtext)");
+        DB::statement("CREATE TRIGGER ts_searchtext BEFORE INSERT OR UPDATE ON posts FOR EACH ROW EXECUTE PROCEDURE tsvector_update_trigger('searchtext', 'pg_catalog.english', 'name', 'detail')");
     }
 
     /**
