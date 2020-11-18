@@ -14,7 +14,15 @@ class CreateServicesTable extends Migration
     public function up()
     {
         Schema::create('services', function (Blueprint $table) {
-            $table->id();
+            $table->increments("id");
+            $table->text("name");
+            $table->text("detail");
+            $table->integer("pricing")->nullable();
+            $table->text("image");
+            $table->text("condition")->nullable();
+            $table->bigInteger("contact");
+            $table->multiLineString("location");
+            $table->boolean("status")->default(true);
             $table->timestamps();
         });
     }
